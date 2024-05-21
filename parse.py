@@ -1,11 +1,13 @@
 import sys
 from lex import *
+from emit import *
 
 # Parser object keeps track of current token and checks 
 # if the code matches the grammar.
 class Parser:
-    def __init__(self, lexer):
+    def __init__(self, lexer, emitter):
         self.lexer = lexer
+        self.emitter = emitter
 
         self.symbols = set()        # Variables declared so far.
         self.labelsDeclared = set() # Labels declared so far.
@@ -51,6 +53,8 @@ class Parser:
 
     # program ::= {statement}
     def program(self):
+        self.emitter.headerLine("#include <stdio.h>")
+        self.emitter.headerLine("int main(void) {")
         print("PROGRAM")
 
         # Skip excess newlines.
@@ -60,6 +64,11 @@ class Parser:
         # Parse all the statements in the program.
         while not self.checkToken(TokenType.EOF):
             self.statement()
+        
+        # End of file cleanup
+        self.emitter.emitLine("return 0;")
+        self.emitter.emitLine("}")
+
         
         # Check that each label referenced in a GOTO is declared.
         for label in self.labelsGotoed:
@@ -74,40 +83,51 @@ class Parser:
             self.nextToken()
 
             if self.checkToken(TokenType.STRING):
+                self.emitter.emitLine("prinf(\"" + self.curToken.text + "\\n\");")
                 self.nextToken() # Expect a string literal
             else:
-                self.expression() # Expect an expression
+                self.emitter.emit("print(\"%" + ".2f\\n\"" + ", (float)(")
+                self.expression()
+                self.emitter.emitLine("));")
+
         # "IF" comparison "THEN" {statement} "ENDIF"
         elif self.checkToken(TokenType.IF):
             print("STATEMENT-IF")
             self.nextToken()
+            self.emitter.emit("if(")
             self.comparison()
 
             self.match(TokenType.THEN)
             self.nl()
+            self.emitter.emitLine(") {")
 
             # Zero or more statements in the body.
             while not self.checkToken(TokenType.ENDIF):
                 self.statement()
 
             self.match(TokenType.ENDIF)
+            self.emitter.emitLine("}")
+
         # "WHILE" comparison "REPEAT" nl {statement nl} "ENDWHILE" nl
         elif self.checkToken(TokenType.WHILE):
             print("STATEMENT-WHILE")
             self.nextToken()
+            self.emitter.emit("while(")
             self.comparison()
 
             self.match(TokenType.REPEAT)
             self.nl()
+            self.emitter.emitLine(") {")
 
             # Zero or more statements in the loop body
             while not self.checkToken(TokenType.ENDWHILE):
                 self.statement()
 
             self.match(TokenType.ENDWHILE)
+            self.emitter.emitLine("}")
+
         # "LABEL" ident
         elif self.checkToken(TokenType.LABEL):
-            print("STATEMENT-LABEL")
             self.nextToken()
 
             # Ensure label doesn't exist already.
@@ -115,13 +135,14 @@ class Parser:
                 self.abort("Label already exists: " + self.curToken.text)
             self.labelsDeclared.add(self.curToken.text)
 
+            self.emitter.emitLine(self.curToken.text + ":")
             self.match(TokenType.IDENT)
 
         # "GOTO" ident 
         elif self.checkToken(TokenType.GOTO):
-            print("STATEMENT-GOTO")
             self.nextToken()
             self.labelsGotoed.add(self.curToken.text)
+            self.emitter.emitLine("goto" + self.curToken.text + ";")
             self.match(TokenType.IDENT)
 
         # "LET" ident "=" expression

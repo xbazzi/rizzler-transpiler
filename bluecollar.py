@@ -1,5 +1,7 @@
 from lex import *
 from parse import *
+from emit import *
+import sys
 
 def main():
     print("BlueCollar Compiler")
@@ -9,10 +11,13 @@ def main():
     with open(sys.argv[1], 'r') as inputFile:
         source = inputFile.read()
     
-    # Initialize the lexer and parser.
+    # Initialize the lexer, emitter, and parser.
     lexer = Lexer(source)
-    parser = Parser(lexer)
-    parser.program()
-    print("Parsing complete.")
+    emitter = Emitter("out.c")
+    parser = Parser(lexer, emitter)
+
+    parser.program() # Start the parser
+    emitter.writeFile() #Write the output to file
+    print("Compiling complete.")
 
 main()
