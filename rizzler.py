@@ -7,7 +7,7 @@ def main():
     print("*****Rizzler Compiler*****")
 
     if len(sys.argv) != 2:
-        sys.exit("Error: Compiler needs a source file as argument")
+        sys.exit("Error: Bro really forgor the input file, cope + L.")
     with open(sys.argv[1], 'r') as inputFile:
         source = inputFile.read()
     
@@ -18,6 +18,6 @@ def main():
 
     parser.program() # Start the parser
     emitter.writeFile() #Write the output to file
-    print("Compiling complete no cap.")
+    print("Ws in the chat. We just compiled fr fr.")
 
 main()
