@@ -105,8 +105,8 @@ class Parser:
             self.match(TokenType.ENDIF)
             self.emitter.emitLine("}")
 
-        # "WHILE" comparison "RUNITBACK" nl {statement nl} "ENDWHILE" nl
-        elif self.checkToken(TokenType.WHILE):
+        # "EDGING" comparison "RUNITBACK" nl {statement nl} "EDGED" nl
+        elif self.checkToken(TokenType.EDGING):
             self.nextToken()
             self.emitter.emit("while(")
             self.comparison()
@@ -116,10 +116,10 @@ class Parser:
             self.emitter.emitLine(") {")
 
             # Zero or more statements in the loop body
-            while not self.checkToken(TokenType.ENDWHILE):
+            while not self.checkToken(TokenType.EDGED):
                 self.statement()
 
-            self.match(TokenType.ENDWHILE)
+            self.match(TokenType.EDGED)
             self.emitter.emitLine("}")
 
         # "LABEL" ident

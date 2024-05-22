@@ -1,19 +1,19 @@
 # Compute average of given values.
 
 NOCAP a = 0
-WHILE a < 1 RUNITBACK
+EDGING a < 1 RUNITBACK
     YAP "Enter number of scores: "
     PREACH a
-ENDWHILE
+EDGED
 
 NOCAP b = 0
 NOCAP s = 0
 YAP "Enter one value at a time: "
-WHILE b < a RUNITBACK
+EDGING b < a RUNITBACK
     PREACH c
     NOCAP s = s + c
     NOCAP b = b + 1
-ENDWHILE
+EDGED
 
 YAP "Average: "
 YAP s / a

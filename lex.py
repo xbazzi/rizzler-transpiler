@@ -184,9 +184,9 @@ class TokenType(enum.Enum):
 	IF = 106
 	THEN = 107
 	ENDIF = 108
-	WHILE = 109
+	EDGING = 109
 	RUNITBACK = 110
-	ENDWHILE = 111
+	EDGED = 111
 	# Operators.
 	EQ = 201  
 	PLUS = 202

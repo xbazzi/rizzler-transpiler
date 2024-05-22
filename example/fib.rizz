@@ -3,10 +3,10 @@ PREACH nums
 YAP ""
 NOCAP a = 0
 NOCAP b = 1
-WHILE nums > 0 RUNITBACK
+EDGING nums > 0 RUNITBACK
     YAP a
     NOCAP c = a + b
     NOCAP a = b
     NOCAP b = c
     NOCAP nums = nums - 1
-ENDWHILE
+EDGED
