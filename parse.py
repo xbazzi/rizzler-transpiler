@@ -77,7 +77,7 @@ class Parser:
     def statement(self):
         # Check the first token to determine the type of statement
 
-        if self.checkToken(TokenType.PRINT):
+        if self.checkToken(TokenType.YAP):
             self.nextToken()
 
             if self.checkToken(TokenType.STRING):
@@ -105,13 +105,13 @@ class Parser:
             self.match(TokenType.ENDIF)
             self.emitter.emitLine("}")
 
-        # "WHILE" comparison "REPEAT" nl {statement nl} "ENDWHILE" nl
+        # "WHILE" comparison "RUNITBACK" nl {statement nl} "ENDWHILE" nl
         elif self.checkToken(TokenType.WHILE):
             self.nextToken()
             self.emitter.emit("while(")
             self.comparison()
 
-            self.match(TokenType.REPEAT)
+            self.match(TokenType.RUNITBACK)
             self.nl()
             self.emitter.emitLine(") {")
 
@@ -141,8 +141,8 @@ class Parser:
             self.emitter.emitLine("goto" + self.curToken.text + ";")
             self.match(TokenType.IDENT)
 
-        # "LET" ident "=" expression
-        elif self.checkToken(TokenType.LET):
+        # "NOCAP" ident "=" expression
+        elif self.checkToken(TokenType.NOCAP):
             self.nextToken()
             
             # Check if ident exists in symbol table. If not, declare it.
@@ -157,8 +157,8 @@ class Parser:
             self.expression()
             self.emitter.emitLine(";");
 
-        # "INPUT" ident
-        elif self.checkToken(TokenType.INPUT):
+        # "PREACH" ident
+        elif self.checkToken(TokenType.PREACH):
             self.nextToken()
 
             # Check if variable exists. If not, declare it.
@@ -230,8 +230,6 @@ class Parser:
 
     # primary ::= number | ident
     def primary(self):
-        print("PRIMARY (" + self.curToken.text + ")")
-
         if self.checkToken(TokenType.NUMBER):
             self.emitter.emit(self.curToken.text)
             self.nextToken()
