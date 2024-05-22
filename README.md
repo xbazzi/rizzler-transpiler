@@ -5,5 +5,6 @@ Check out the  [example](example/) directory for a (bitter) taste of the languag
 
 ## TODO list
  - Replace all keywords with brainrot Ohio gyatt rizz
+ - Add code formatting for C output
  - Automate compilation with bash script (all my homies hate cross-platform)
  - Add an AST for intermediate representation and optimizations
