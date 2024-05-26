@@ -1,6 +1,6 @@
 YAP "How many fibonacci numbers do you want?"
 PREACH nums
-YAP ""
+
 NOCAP a = 0
 NOCAP b = 1
 COOKING nums > 0 RUNITBACK

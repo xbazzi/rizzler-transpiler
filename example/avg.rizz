@@ -1,10 +1,10 @@
 # Compute average of given values.
 
 NOCAP a = 0
-EDGING a < 1 RUNITBACK
+COOKING a < 1 RUNITBACK
     YAP "Enter number of scores: "
     PREACH a
-EDGED
+COOKED
 
 NOCAP b = 0
 NOCAP s = 0
