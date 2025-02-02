@@ -15,5 +15,5 @@ $ ./<whatever>
  - Spit the C file with the same name as the .rizz file
  - Replace all keywords with brainrot Ohio gyatt rizz
  - Add code formatting for C output
- - Automate compilation with bash script (all my homies hate cross-platform)
+ - Automate compilation with bash script (all my bros hate cross-platform)
  - Add an AST for intermediate representation and optimizations
