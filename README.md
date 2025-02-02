@@ -1,7 +1,7 @@
 # Rizzler
-A simple compiler written in Python for an internet slang language, taken from Austin Henley's <a href="https://austinhenley.com/blog/teenytinycompiler1.html">Teeny Tiny Compiler project</a>. The output is C code, which needs to be further compiled into machine code (I know...).
+A simple transpiler written in Python for an internet slang language, taken from Austin Henley's <a href="https://austinhenley.com/blog/teenytinycompiler1.html">Teeny Tiny Compiler project</a>. The output is C code, which needs to be further compiled into assembly code (I know...).
 
-![figuring out computers](rizzlers.webp "Rizzlers")
+![figuring out computers](transpiler.png "Rizzlers")
 
 Check out the  [example](example/) directory for a (bitter) taste of the language.
 
