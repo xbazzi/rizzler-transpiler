@@ -11,6 +11,7 @@ $ python3 rizzler.py <file>.rizz
 $ gcc out.c -o <whatever>
 $ ./<whatever>
 ```
+
 ## TODO list
  - Spit the C file with the same name as the .rizz file
  - Replace all keywords with brainrot Ohio gyatt rizz
